@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AquaPay — Water Billing System</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- =========================================
+  LOADER
+========================================= -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-ring"></div>
+    <p class="loader-text">AQUAPAY</p>
+  </div>
+</div>
+
+<!-- =========================================
+  NAVIGATION
+========================================= -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <i class="fas fa-droplet"></i>
+    Aqua<span>Pay</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="payment.html">Payment</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
+    <a href="payment.html" class="btn-nav">Pay Bill</a>
+  </div>
+  <button class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="payment.html">Payment</a>
+  <a href="contact.html">Contact Us</a>
+  <button class="theme-toggle" style="align-self:flex-start">
+    <i class="fas fa-sun"></i> Toggle Theme
+  </button>
+</div>
+
+<!-- =========================================
+  HERO
+========================================= -->
+<section class="hero" id="home">
+  <div class="hero-particles"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <!-- Left -->
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-circle-check"></i>
+          Trusted by 5,000,000+ Households
+        </div>
+        <h1 class="hero-title">
+          Easy Monthly<br><span class="grad">Water Bill</span><br>Payments
+        </h1>
+        <p class="hero-sub">
+          Manage, track, and pay your water bills effortlessly. AquaPay brings secure, transparent billing directly to your fingertips — anytime, anywhere.
+        </p>
+        <div class="hero-btns">
+          <a href="payment.html" class="btn btn-primary"><i class="fas fa-bolt"></i> Pay Now</a>
+          <a href="about.html"   class="btn btn-outline">Learn More</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <h4 data-target="50000" data-suffix="+">0</h4>
+            <p>Active Users</p>
+          </div>
+          <div class="hero-stat-item">
+            <h4 data-target="99" data-suffix="%">0</h4>
+            <p>Uptime</p>
+          </div>
+          <div class="hero-stat-item">
+            <h4 data-target="2" data-suffix="s">0</h4>
+            <p>Avg. Payment Time</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right visual card -->
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <span class="hero-card-title"><i class="fas fa-droplet"></i> Monthly Bill</span>
+            <div class="hero-card-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+          </div>
+          <div class="hero-card-amount">USD 60</div>
+          <div class="hero-card-sub">Due: 31st July 2025</div>
+          <div class="hero-card-bar-wrap">
+            <div class="hero-card-bar"></div>
+          </div>
+          <div class="hero-card-row">
+            <span>68% of limit used</span>
+            <span style="color:var(--clr-aqua)">On track</span>
+          </div>
+          <button class="hero-card-btn" onclick="location.href='payment.html'">
+            Pay Now — Secure &amp; Fast
+          </button>
+        </div>
+
+        <div class="hero-badge-float badge-f1">
+          <i class="fas fa-shield-halved"></i> 256-bit SSL Secured
+        </div>
+        <div class="hero-badge-float badge-f2">
+          <i class="fas fa-check-circle"></i> Payment Confirmed
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:60px;">
+    <path d="M0,30 C360,65 1080,-5 1440,30 L1440,60 L0,60 Z" fill="var(--clr-deep)"/>
+  </svg>
+</div>
+
+<!-- =========================================
+  FEATURES
+========================================= -->
+<section class="section" id="features" style="background:var(--clr-deep)">
+  <div class="container">
+    <div class="text-center reveal">
+      <span class="section-tag">What We Offer</span>
+      <h2 class="section-title">Everything You Need to <span class="grad">Manage Water Bills</span></h2>
+      <p class="section-sub">From real-time usage tracking to instant payments, AquaPay simplifies every step of the billing process.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Instant Payments</h3>
+        <p>Pay your water bills in under 30 seconds. Multiple payment methods supported with zero transaction fees.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Usage Tracking</h3>
+        <p>Monitor your monthly water consumption with interactive charts and receive alerts when usage spikes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-bell"></i></div>
+        <h3>Smart Reminders</h3>
+        <p>Never miss a due date. Get SMS and email reminders 7 days and 24 hours before your bill is due.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+        <h3>Bank-Level Security</h3>
+        <p>All transactions are encrypted with 256-bit SSL. Your financial data is never stored on our servers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-receipt"></i></div>
+        <h3>Digital Receipts</h3>
+        <p>Instant payment receipts delivered to your email. Download PDF statements for up to 24 months.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-headset"></i></div>
+        <h3>24/7 Support</h3>
+        <p>Our dedicated support team is available round the clock via chat, email, or phone to assist you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+  WHY CHOOSE US
+========================================= -->
+<section class="section" style="background:var(--clr-ocean)">
+  <div class="container">
+    <div class="why-inner">
+      <div class="why-visual reveal-left">
+        <div class="why-img-wrap">
+          <div class="why-img-placeholder">
+            <i class="fas fa-water"></i>
+            <p>Clean Water for Everyone</p>
+          </div>
+        </div>
+        <div class="why-stat-badge">
+          <h3 data-target="98" data-suffix="%">0</h3>
+          <p>Customer Satisfaction</p>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <span class="section-tag">Why AquaPay</span>
+        <h2 class="section-title">The Smarter Way to Handle Your <span class="grad">Water Bills</span></h2>
+        <p class="section-sub">We've reimagined the water billing experience from the ground up — faster, simpler, and more transparent.</p>
+
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-item-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <h4>Pay in 30 Seconds</h4>
+              <p>Our streamlined payment flow means you can settle your bill in the time it takes to make a cup of tea.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon"><i class="fas fa-lock"></i></div>
+            <div>
+              <h4>Zero Data Compromise</h4>
+              <p>We use tokenized card processing — your actual card details are never stored on our servers.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon"><i class="fas fa-mobile-screen"></i></div>
+            <div>
+              <h4>Works on Every Device</h4>
+              <p>Fully responsive design ensures a seamless experience on phones, tablets, and desktops.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon"><i class="fas fa-hand-holding-droplet"></i></div>
+            <div>
+              <h4>Built for Communities</h4>
+              <p>AquaPay is designed with African households in mind, supporting M-Pesa and local bank transfers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+  STATS / COUNTERS
+========================================= -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="card-stat reveal">
+        <i class="fas fa-users"></i>
+        <h2 data-target="50000" data-suffix="+">0</h2>
+        <p>Active Users</p>
+      </div>
+      <div class="card-stat reveal">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <h2 data-target="2400000" data-suffix="+">0</h2>
+        <p>Transactions Processed</p>
+      </div>
+      <div class="card-stat reveal">
+        <i class="fas fa-city"></i>
+        <h2 data-target="47" data-suffix="+">0</h2>
+        <p>Counties Covered</p>
+      </div>
+      <div class="card-stat reveal">
+        <i class="fas fa-star"></i>
+        <h2 data-target="98" data-suffix="%">0</h2>
+        <p>Customer Satisfaction</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+  TESTIMONIALS
+========================================= -->
+<section class="section" style="background:var(--clr-deep)">
+  <div class="container">
+    <div class="text-center reveal">
+      <span class="section-tag">Testimonials</span>
+      <h2 class="section-title">What Our <span class="grad">Customers Say</span></h2>
+      <p class="section-sub">Thousands of households across the United States trust AquaPay for their monthly water bills.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"AquaPay has completely changed how I handle my water bill. What used to take a trip to the county office now takes literally 20 seconds from my phone."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JC</div>
+          <div>
+            <h5>James Charles</h5>
+            <span>Chicago, United States</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The usage tracking feature helped me discover I had a leak I didn't know about. Saved me a lot of money! Customer support was also very helpful."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JJ</div>
+          <div>
+            <h5>James Jones</h5>
+            <span>Virginia, United States</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★☆</div>
+        <p class="testi-text">"Very clean interface. I manage bills for three properties and the multi-account feature is a lifesaver. Highly recommend to landlords and property managers."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SS</div>
+          <div>
+            <h5>Susan Shamma</h5>
+            <span>Michigan, United States</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+  CTA BANNER
+========================================= -->
+<div class="container">
+  <div class="cta-banner reveal">
+    <div>
+      <h2>Ready to Pay Your Bill?</h2>
+      <p>Join 50,000+ households who've simplified their water billing.</p>
+    </div>
+    <a href="payment.html" class="btn-cta"><i class="fas fa-arrow-right"></i> Get Started Now</a>
+  </div>
+</div>
+
+<!-- =========================================
+  FOOTER
+========================================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin:0 0 12px">
+          <i class="fas fa-droplet"></i> Aqua<span>Pay</span>
+        </div>
+        <p>United States' leading digital water billing platform. Secure, fast, and available 24/7 for households and businesses.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="payment.html">Pay Bill</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">FAQ</a>
+        <a href="#">Help Center</a>
+        <a href="#">Report Issue</a>
+        <a href="#">Status Page</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Compliance</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 AquaPay Water Billing System. All rights reserved.</p>
+      <p>Made with <i class="fas fa-heart" style="color:var(--clr-aqua)"></i> for clean water access</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+<script src="script.js"></script>
+</body>
+</html>

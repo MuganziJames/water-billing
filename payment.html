@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pay Bill — AquaPay Water Billing System</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-ring"></div>
+    <p class="loader-text">AQUAPAY</p>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <i class="fas fa-droplet"></i> Aqua<span>Pay</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="payment.html">Payment</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle"><i class="fas fa-sun"></i></button>
+    <a href="payment.html" class="btn-nav">Pay Bill</a>
+  </div>
+  <button class="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="payment.html">Payment</a>
+  <a href="contact.html">Contact Us</a>
+</div>
+
+<!-- Hero -->
+<section class="page-hero payment-hero">
+  <div class="hero-particles"></div>
+  <div class="container page-hero-inner">
+    <div class="hero-badge"><i class="fas fa-lock"></i> Secure Payment Portal</div>
+    <h1>Pay Your <span class="grad">Water Bill</span> Securely</h1>
+    <p>Fast, encrypted, and hassle-free. Pay your monthly water bill in under 30 seconds using any card or mobile money.</p>
+  </div>
+</section>
+
+<!-- Payment section -->
+<section class="section" style="background:var(--clr-deep);padding-top:60px">
+  <div class="container">
+    <div class="payment-layout">
+
+      <!-- Form -->
+      <div class="payment-form-card reveal-left">
+        <h2>Complete Your Payment</h2>
+        <p>Fill in your details below. All fields are required.</p>
+
+        <form id="paymentForm" novalidate>
+          <!-- Personal Info -->
+          <div class="form-section-title">Account Information</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+              <input type="text" id="fullName" placeholder="e.g. John Jones" />
+              <span class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="accountNo"><i class="fas fa-hashtag"></i> Account Number</label>
+              <input type="text" id="accountNo" placeholder="e.g. 123456789" />
+              <span class="error-msg"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+              <input type="email" id="email" placeholder="you@example.com" />
+              <span class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+              <input type="tel" id="phone" placeholder="+1 305 555 1234" />
+              <span class="error-msg"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="amount"><i class="fas fa-coins"></i> Amount to Pay (USD)</label>
+            <input type="number" id="amount" placeholder="e.g. 100" min="1" />
+            <span class="error-msg"></span>
+          </div>
+
+          <!-- Card Visual -->
+          <div class="form-section-title">Card Details</div>
+
+          <div class="card-visual">
+            <div class="card-chip"></div>
+            <div class="card-number-display" id="cardNumberDisplay">•••• •••• •••• ••••</div>
+            <div class="card-bottom-row">
+              <div>
+                <div class="card-info-label">Card Holder</div>
+                <div class="card-info-value" id="cardHolderDisplay">FULL NAME</div>
+              </div>
+              <div>
+                <div class="card-info-label">Expires</div>
+                <div class="card-info-value" id="cardExpiryDisplay">MM/YY</div>
+              </div>
+              <div class="card-network" id="cardNetworkIcon">
+                <i class="fas fa-credit-card"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cardHolder"><i class="fas fa-id-card"></i> Card Holder Name</label>
+            <input type="text" id="cardHolder" placeholder="Name on card" autocomplete="cc-name" />
+            <span class="error-msg"></span>
+          </div>
+          <div class="form-group">
+            <label for="cardNumber"><i class="fas fa-credit-card"></i> Card Number</label>
+            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number" inputmode="numeric" />
+            <span class="error-msg"></span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="expiry"><i class="fas fa-calendar"></i> Expiry Date</label>
+              <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp" inputmode="numeric" />
+              <span class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="cvv"><i class="fas fa-key"></i> CVV</label>
+              <input type="password" id="cvv" placeholder="•••" maxlength="4" autocomplete="cc-csc" inputmode="numeric" />
+              <span class="error-msg"></span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-pay">
+            <i class="fas fa-lock"></i> Pay Securely
+          </button>
+
+          <div class="secure-badges">
+            <i class="fas fa-shield-halved"></i>
+            256-bit SSL Encrypted &nbsp;•&nbsp;
+            <i class="fas fa-check-circle"></i>
+            PCI DSS Compliant &nbsp;•&nbsp;
+            <i class="fas fa-lock"></i>
+            Your data is safe
+          </div>
+        </form>
+      </div>
+
+      <!-- Summary Sidebar -->
+      <div class="payment-summary reveal-right">
+        <h3><i class="fas fa-receipt"></i> Payment Summary</h3>
+
+        <div class="summary-row">
+          <span>Water Consumption</span>
+          <span id="summaryAmount">USD 0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Service Fee</span>
+          <span>USD 2.50</span>
+        </div>
+        <div class="summary-row">
+          <span>VAT (16%)</span>
+          <span>Included</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span id="summaryTotal">USD 2.50</span>
+        </div>
+
+        <p class="summary-note">
+          <i class="fas fa-check-circle"></i>
+          Your payment is processed instantly. A receipt will be sent to your email address upon successful payment.
+        </p>
+
+        <div style="margin-top:24px;padding:16px;background:rgba(0,196,204,.07);border:1px solid rgba(0,196,204,.15);border-radius:12px">
+          <p style="font-size:.82rem;color:var(--clr-muted);line-height:1.7">
+            <i class="fas fa-info-circle" style="color:var(--clr-aqua)"></i>
+            &nbsp;This is a <strong style="color:var(--clr-white)">simulated</strong> payment environment. No real charges will be made. For actual payments, contact your state water office.
+          </p>
+        </div>
+
+        <div style="margin-top:20px">
+          <p style="font-size:.78rem;color:var(--clr-muted);margin-bottom:10px;text-align:center">Accepted Payment Methods</p>
+          <div style="display:flex;gap:10px;justify-content:center;font-size:1.6rem;color:var(--clr-muted)">
+            <i class="fab fa-cc-visa" style="color:#1A1F71"></i>
+            <i class="fab fa-cc-mastercard" style="color:#EB001B"></i>
+            <i class="fab fa-cc-amex" style="color:#007BC1"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Success overlay -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <h2>Payment Successful!</h2>
+    <p>Your water bill has been paid successfully. A confirmation receipt has been sent to your registered email address.</p>
+    <div class="success-ref" id="payRef">REF-XXXXXXXX</div>
+    <button class="btn-close-success" id="closeSuccess">
+      <i class="fas fa-home"></i> Done
+    </button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin:0 0 12px">
+          <i class="fas fa-droplet"></i> Aqua<span>Pay</span>
+        </div>
+        <p>United States' leading digital water billing platform. Secure, fast, and available 24/7 for households and businesses.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-btn"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="payment.html">Pay Bill</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">FAQ</a>
+        <a href="#">Help Center</a>
+        <a href="#">Report Issue</a>
+        <a href="#">Status Page</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Compliance</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 AquaPay Water Billing System. All rights reserved.</p>
+      <p>Made with <i class="fas fa-heart" style="color:var(--clr-aqua)"></i> for clean water access</p>
+    </div>
+  </div>
+</footer>
+
+<button id="back-top"><i class="fas fa-arrow-up"></i></button>
+<script src="script.js"></script>
+</body>
+</html>
