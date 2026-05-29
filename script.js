@@ -190,10 +190,10 @@ if (paymentForm) {
 
     // validate fields
     const fields = [
-      { id: 'fullName',   rule: v => v.trim().length >= 3,       msg: 'Enter your full name (min 3 chars).' },
-      { id: 'accountNo',  rule: v => /^\d{6,12}$/.test(v.trim()), msg: 'Account number: 6-12 digits.' },
+      { id: 'fullName',   rule: v => v.trim().length >= 3,        msg: 'Enter your full name (min 3 chars).' },
+      { id: 'accountNo',  rule: v => v.trim() === '' || /^\d{6,12}$/.test(v.trim()), msg: 'Account number must be 6-12 digits if provided.' },
       { id: 'email',      rule: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), msg: 'Enter a valid email.' },
-      { id: 'phone',      rule: v => /^\+?[\d\s\-]{8,15}$/.test(v), msg: 'Enter a valid phone number.' },
+      { id: 'phone',      rule: v => v.trim() === '' || /^\+?[\d\s\-]{8,15}$/.test(v.trim()), msg: 'Enter a valid phone number or leave it blank.' },
       { id: 'amount',     rule: v => parseFloat(v) >= 1,          msg: 'Enter a valid amount.' },
     ];
 
@@ -225,6 +225,9 @@ if (paymentForm) {
     const phone = document.getElementById('phone').value.trim();
     const reference = buildReference();
     const amountUsd = Number(document.getElementById('amount').value || 0).toFixed(2);
+    const metadata = { customer_name: fullName };
+    if (accountNo) metadata.order_id = accountNo;
+    if (phone) metadata.phone = phone;
 
     if (payButton) {
       payButton.disabled = true;
@@ -240,11 +243,7 @@ if (paymentForm) {
           email,
           amount_usd: amountUsd,
           reference,
-          metadata: {
-            order_id: accountNo,
-            customer_name: fullName,
-            phone,
-          },
+          metadata,
         }),
       });
 
