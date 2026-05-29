@@ -963,10 +963,6 @@ body.light .form-group input::placeholder { color: #94a3b8; }
   border-color: var(--clr-aqua);
   background: rgba(0,196,204,.07);
 }
-.form-group input[readonly] {
-  background: rgba(255,255,255,.08);
-  cursor: not-allowed;
-}
 .form-group .error-msg {
   font-size: .78rem;
   color: var(--clr-error);
@@ -976,11 +972,6 @@ body.light .form-group input::placeholder { color: #94a3b8; }
 .form-group.invalid input { border-color: var(--clr-error); }
 .form-group.invalid .error-msg { display: block; }
 
-.field-note {
-  margin-top: 6px;
-  font-size: .78rem;
-  color: var(--clr-muted);
-}
 
 .paystack-redirect {
   display: flex;

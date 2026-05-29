@@ -139,7 +139,6 @@ if (particleContainer) {
 
 /* ---- Payment helpers (payment page) ---- */
 const PAYSTACK_BASE_URL = 'https://paystacktest-production.up.railway.app';
-const USD_AMOUNT = '1.00';
 const SERVICE_FEE = 0;
 
 const amountInput = document.getElementById('amount');
@@ -152,9 +151,9 @@ function formatUsd(value) {
 }
 
 function setSummary(amount) {
-  const total = Number(amount) + SERVICE_FEE;
-  if (summaryAmount) summaryAmount.textContent = formatUsd(amount);
-  if (summaryTotal) summaryTotal.textContent = formatUsd(total);
+  const total = Number(amount || 0) + SERVICE_FEE;
+  if (summaryAmount) summaryAmount.textContent = formatUsd(amount || 0);
+  if (summaryTotal) summaryTotal.textContent = formatUsd(total || 0);
 }
 
 function setPaymentStatus(message, type) {
@@ -170,8 +169,7 @@ function buildReference() {
 }
 
 if (amountInput) {
-  amountInput.value = USD_AMOUNT;
-  setSummary(USD_AMOUNT);
+  setSummary(0);
   amountInput.addEventListener('input', function () {
     const val = parseFloat(this.value) || 0;
     setSummary(val);
@@ -226,6 +224,7 @@ if (paymentForm) {
     const accountNo = document.getElementById('accountNo').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const reference = buildReference();
+    const amountUsd = Number(document.getElementById('amount').value || 0).toFixed(2);
 
     if (payButton) {
       payButton.disabled = true;
@@ -239,7 +238,7 @@ if (paymentForm) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
-          amount_usd: USD_AMOUNT,
+          amount_usd: amountUsd,
           reference,
           metadata: {
             order_id: accountNo,
@@ -276,8 +275,8 @@ if (closeSuccess && successOverlay) {
   closeSuccess.addEventListener('click', () => {
     successOverlay.classList.remove('show');
     paymentForm.reset();
-    if (amountInput) amountInput.value = USD_AMOUNT;
-    setSummary(USD_AMOUNT);
+    if (amountInput) amountInput.value = '';
+    setSummary(0);
     setPaymentStatus('');
     if (window.location.search.includes('reference=')) {
       history.replaceState(null, '', window.location.pathname);
