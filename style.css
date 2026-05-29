@@ -963,6 +963,10 @@ body.light .form-group input::placeholder { color: #94a3b8; }
   border-color: var(--clr-aqua);
   background: rgba(0,196,204,.07);
 }
+.form-group input[readonly] {
+  background: rgba(255,255,255,.08);
+  cursor: not-allowed;
+}
 .form-group .error-msg {
   font-size: .78rem;
   color: var(--clr-error);
@@ -971,6 +975,45 @@ body.light .form-group input::placeholder { color: #94a3b8; }
 }
 .form-group.invalid input { border-color: var(--clr-error); }
 .form-group.invalid .error-msg { display: block; }
+
+.field-note {
+  margin-top: 6px;
+  font-size: .78rem;
+  color: var(--clr-muted);
+}
+
+.paystack-redirect {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: rgba(0,196,204,.08);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 22px;
+}
+.paystack-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0,196,204,.18);
+  color: var(--clr-aqua);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex: 0 0 40px;
+}
+.paystack-redirect h4 {
+  font-family: var(--font-head);
+  font-size: .95rem;
+  margin-bottom: 6px;
+}
+.paystack-redirect p {
+  font-size: .82rem;
+  color: var(--clr-muted);
+  line-height: 1.6;
+}
 
 .card-visual {
   background: linear-gradient(135deg,#0a4870,#0a6280);
@@ -1034,6 +1077,15 @@ body.light .form-group input::placeholder { color: #94a3b8; }
   box-shadow: 0 8px 28px rgba(0,196,204,.45);
 }
 .btn-pay:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+.payment-status {
+  min-height: 18px;
+  margin: 8px 0 14px;
+  font-size: .82rem;
+  color: var(--clr-muted);
+}
+.payment-status.error { color: var(--clr-error); }
+.payment-status.success { color: var(--clr-success); }
 
 .secure-badges {
   display: flex; align-items: center; justify-content: center; gap: 10px;

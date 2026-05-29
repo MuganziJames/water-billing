@@ -137,55 +137,44 @@ if (particleContainer) {
   }
 }
 
-/* ---- Live card display (payment page) ---- */
-const cardNumberInput   = document.getElementById('cardNumber');
-const cardHolderInput   = document.getElementById('cardHolder');
-const cardExpiryInput   = document.getElementById('expiry');
-const cardNumberDisplay = document.getElementById('cardNumberDisplay');
-const cardHolderDisplay = document.getElementById('cardHolderDisplay');
-const cardExpiryDisplay = document.getElementById('cardExpiryDisplay');
-const cardNetworkIcon   = document.getElementById('cardNetworkIcon');
+/* ---- Payment helpers (payment page) ---- */
+const PAYSTACK_BASE_URL = 'https://paystacktest-production.up.railway.app';
+const USD_AMOUNT = '1.00';
+const SERVICE_FEE = 0;
 
-if (cardNumberInput) {
-  cardNumberInput.addEventListener('input', function () {
-    let v = this.value.replace(/\D/g, '').substring(0, 16);
-    this.value = v.replace(/(.{4})/g, '$1 ').trim();
-    const display = v.padEnd(16, '•').replace(/(.{4})/g, '$1 ').trim();
-    if (cardNumberDisplay) cardNumberDisplay.textContent = display;
-    // detect network
-    if (cardNetworkIcon) {
-      if (/^4/.test(v))      cardNetworkIcon.innerHTML = '<i class="fab fa-cc-visa"></i>';
-      else if (/^5/.test(v)) cardNetworkIcon.innerHTML = '<i class="fab fa-cc-mastercard"></i>';
-      else if (/^3[47]/.test(v)) cardNetworkIcon.innerHTML = '<i class="fab fa-cc-amex"></i>';
-      else cardNetworkIcon.innerHTML = '<i class="fas fa-credit-card"></i>';
-    }
-  });
-}
-if (cardHolderInput) {
-  cardHolderInput.addEventListener('input', function () {
-    if (cardHolderDisplay) cardHolderDisplay.textContent = this.value || 'FULL NAME';
-  });
-}
-if (cardExpiryInput) {
-  cardExpiryInput.addEventListener('input', function () {
-    let v = this.value.replace(/\D/g, '').substring(0, 4);
-    if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
-    this.value = v;
-    if (cardExpiryDisplay) cardExpiryDisplay.textContent = this.value || 'MM/YY';
-  });
-}
-
-// Live amount update in summary
 const amountInput = document.getElementById('amount');
 const summaryAmount = document.getElementById('summaryAmount');
-const summaryTotal  = document.getElementById('summaryTotal');
+const summaryTotal = document.getElementById('summaryTotal');
+const paymentStatus = document.getElementById('paymentStatus');
+
+function formatUsd(value) {
+  return `USD ${Number(value).toFixed(2)}`;
+}
+
+function setSummary(amount) {
+  const total = Number(amount) + SERVICE_FEE;
+  if (summaryAmount) summaryAmount.textContent = formatUsd(amount);
+  if (summaryTotal) summaryTotal.textContent = formatUsd(total);
+}
+
+function setPaymentStatus(message, type) {
+  if (!paymentStatus) return;
+  paymentStatus.textContent = message;
+  paymentStatus.classList.remove('error', 'success');
+  if (type) paymentStatus.classList.add(type);
+}
+
+function buildReference() {
+  const random = Math.random().toString(36).slice(2, 8).toUpperCase();
+  return `AQP-${Date.now()}-${random}`;
+}
 
 if (amountInput) {
+  amountInput.value = USD_AMOUNT;
+  setSummary(USD_AMOUNT);
   amountInput.addEventListener('input', function () {
     const val = parseFloat(this.value) || 0;
-    const fee = 2.50;
-    if (summaryAmount) summaryAmount.textContent = `KSh ${val.toFixed(2)}`;
-    if (summaryTotal)  summaryTotal.textContent  = `KSh ${(val + fee).toFixed(2)}`;
+    setSummary(val);
   });
 }
 
@@ -194,9 +183,10 @@ const paymentForm = document.getElementById('paymentForm');
 const successOverlay = document.getElementById('successOverlay');
 const closeSuccess   = document.getElementById('closeSuccess');
 const payRef = document.getElementById('payRef');
+const payButton = paymentForm ? paymentForm.querySelector('.btn-pay') : null;
 
 if (paymentForm) {
-  paymentForm.addEventListener('submit', function (e) {
+  paymentForm.addEventListener('submit', async function (e) {
     e.preventDefault();
     let valid = true;
 
@@ -207,10 +197,6 @@ if (paymentForm) {
       { id: 'email',      rule: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), msg: 'Enter a valid email.' },
       { id: 'phone',      rule: v => /^\+?[\d\s\-]{8,15}$/.test(v), msg: 'Enter a valid phone number.' },
       { id: 'amount',     rule: v => parseFloat(v) >= 1,          msg: 'Enter a valid amount.' },
-      { id: 'cardHolder', rule: v => v.trim().length >= 3,       msg: 'Enter cardholder name.' },
-      { id: 'cardNumber', rule: v => v.replace(/\s/g,'').length === 16, msg: 'Card number must be 16 digits.' },
-      { id: 'expiry',     rule: v => /^\d{2}\/\d{2}$/.test(v),   msg: 'Format: MM/YY' },
-      { id: 'cvv',        rule: v => /^\d{3,4}$/.test(v),         msg: '3 or 4 digit CVV.' },
     ];
 
     fields.forEach(({ id, rule, msg }) => {
@@ -231,20 +217,51 @@ if (paymentForm) {
       // scroll to first invalid
       const firstInvalid = paymentForm.querySelector('.form-group.invalid input');
       if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setPaymentStatus('Please fix the highlighted fields.', 'error');
       return;
     }
 
-    // simulate processing
-    const btn = paymentForm.querySelector('.btn-pay');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing…';
+    const email = document.getElementById('email').value.trim();
+    const fullName = document.getElementById('fullName').value.trim();
+    const accountNo = document.getElementById('accountNo').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const reference = buildReference();
 
-    setTimeout(() => {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely';
-      if (payRef) payRef.textContent = 'REF-' + Math.random().toString(36).substring(2,10).toUpperCase();
-      if (successOverlay) successOverlay.classList.add('show');
-    }, 2200);
+    if (payButton) {
+      payButton.disabled = true;
+      payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting…';
+    }
+    setPaymentStatus('Redirecting to secure Paystack checkout…');
+
+    try {
+      const res = await fetch(`${PAYSTACK_BASE_URL}/api/payments/paystack/initialize`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          amount_usd: USD_AMOUNT,
+          reference,
+          metadata: {
+            order_id: accountNo,
+            customer_name: fullName,
+            phone,
+          },
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.authorization_url) {
+        throw new Error(data.message || 'Payment initialization failed.');
+      }
+
+      window.location.href = data.authorization_url;
+    } catch (err) {
+      setPaymentStatus(err.message || 'Payment initialization failed. Please try again.', 'error');
+      if (payButton) {
+        payButton.disabled = false;
+        payButton.innerHTML = '<i class="fas fa-lock"></i> Pay Securely';
+      }
+    }
   });
 
   // live remove invalid class on input
@@ -259,13 +276,50 @@ if (closeSuccess && successOverlay) {
   closeSuccess.addEventListener('click', () => {
     successOverlay.classList.remove('show');
     paymentForm.reset();
-    if (cardNumberDisplay) cardNumberDisplay.textContent = '•••• •••• •••• ••••';
-    if (cardHolderDisplay) cardHolderDisplay.textContent = 'FULL NAME';
-    if (cardExpiryDisplay) cardExpiryDisplay.textContent = 'MM/YY';
-    if (cardNetworkIcon)   cardNetworkIcon.innerHTML = '<i class="fas fa-credit-card"></i>';
-    if (summaryAmount) summaryAmount.textContent = 'KSh 0.00';
-    if (summaryTotal)  summaryTotal.textContent  = 'KSh 2.50';
+    if (amountInput) amountInput.value = USD_AMOUNT;
+    setSummary(USD_AMOUNT);
+    setPaymentStatus('');
+    if (window.location.search.includes('reference=')) {
+      history.replaceState(null, '', window.location.pathname);
+    }
   });
+}
+
+async function verifyPayment(reference) {
+  if (!reference) return;
+  if (payButton) {
+    payButton.disabled = true;
+    payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying…';
+  }
+  setPaymentStatus('Verifying payment…');
+
+  try {
+    const res = await fetch(`${PAYSTACK_BASE_URL}/api/payments/paystack/verify?reference=${encodeURIComponent(reference)}`);
+    const data = await res.json().catch(() => ({}));
+    const status = data && data.data && data.data.status;
+
+    if (status === 'success') {
+      if (payRef) payRef.textContent = reference;
+      if (successOverlay) successOverlay.classList.add('show');
+      setPaymentStatus('Payment verified.', 'success');
+      return;
+    }
+
+    setPaymentStatus('Payment not completed. Please try again.', 'error');
+  } catch (err) {
+    setPaymentStatus('Verification failed. Please contact support.', 'error');
+  } finally {
+    if (payButton) {
+      payButton.disabled = false;
+      payButton.innerHTML = '<i class="fas fa-lock"></i> Pay Securely';
+    }
+  }
+}
+
+if (paymentForm) {
+  const params = new URLSearchParams(window.location.search);
+  const reference = params.get('reference');
+  if (reference) verifyPayment(reference);
 }
 
 /* ---- Contact form ---- */

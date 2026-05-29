@@ -90,53 +90,21 @@
           </div>
           <div class="form-group">
             <label for="amount"><i class="fas fa-coins"></i> Amount to Pay (USD)</label>
-            <input type="number" id="amount" placeholder="e.g. 100" min="1" />
+            <input type="number" id="amount" value="1.00" min="1" step="0.01" readonly />
             <span class="error-msg"></span>
+            <div class="field-note">Fixed amount: USD 1.00</div>
           </div>
 
-          <!-- Card Visual -->
-          <div class="form-section-title">Card Details</div>
-
-          <div class="card-visual">
-            <div class="card-chip"></div>
-            <div class="card-number-display" id="cardNumberDisplay">•••• •••• •••• ••••</div>
-            <div class="card-bottom-row">
-              <div>
-                <div class="card-info-label">Card Holder</div>
-                <div class="card-info-value" id="cardHolderDisplay">FULL NAME</div>
-              </div>
-              <div>
-                <div class="card-info-label">Expires</div>
-                <div class="card-info-value" id="cardExpiryDisplay">MM/YY</div>
-              </div>
-              <div class="card-network" id="cardNetworkIcon">
-                <i class="fas fa-credit-card"></i>
-              </div>
+          <div class="form-section-title">Payment Method</div>
+          <div class="paystack-redirect">
+            <div class="paystack-icon"><i class="fas fa-lock"></i></div>
+            <div>
+              <h4>Secure Paystack Checkout</h4>
+              <p>You'll be redirected to Paystack to enter card or mobile money details. AquaPay never stores your card information.</p>
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="cardHolder"><i class="fas fa-id-card"></i> Card Holder Name</label>
-            <input type="text" id="cardHolder" placeholder="Name on card" autocomplete="cc-name" />
-            <span class="error-msg"></span>
-          </div>
-          <div class="form-group">
-            <label for="cardNumber"><i class="fas fa-credit-card"></i> Card Number</label>
-            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number" inputmode="numeric" />
-            <span class="error-msg"></span>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="expiry"><i class="fas fa-calendar"></i> Expiry Date</label>
-              <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp" inputmode="numeric" />
-              <span class="error-msg"></span>
-            </div>
-            <div class="form-group">
-              <label for="cvv"><i class="fas fa-key"></i> CVV</label>
-              <input type="password" id="cvv" placeholder="•••" maxlength="4" autocomplete="cc-csc" inputmode="numeric" />
-              <span class="error-msg"></span>
-            </div>
-          </div>
+          <div id="paymentStatus" class="payment-status" role="status" aria-live="polite"></div>
 
           <button type="submit" class="btn-pay">
             <i class="fas fa-lock"></i> Pay Securely
@@ -159,11 +127,11 @@
 
         <div class="summary-row">
           <span>Water Consumption</span>
-          <span id="summaryAmount">USD 0.00</span>
+          <span id="summaryAmount">USD 1.00</span>
         </div>
         <div class="summary-row">
           <span>Service Fee</span>
-          <span>USD 2.50</span>
+          <span>USD 0.00</span>
         </div>
         <div class="summary-row">
           <span>VAT (16%)</span>
@@ -172,7 +140,7 @@
         <div class="summary-divider"></div>
         <div class="summary-total">
           <span>Total</span>
-          <span id="summaryTotal">USD 2.50</span>
+          <span id="summaryTotal">USD 1.00</span>
         </div>
 
         <p class="summary-note">
@@ -183,7 +151,7 @@
         <div style="margin-top:24px;padding:16px;background:rgba(0,196,204,.07);border:1px solid rgba(0,196,204,.15);border-radius:12px">
           <p style="font-size:.82rem;color:var(--clr-muted);line-height:1.7">
             <i class="fas fa-info-circle" style="color:var(--clr-aqua)"></i>
-            &nbsp;This is a <strong style="color:var(--clr-white)">simulated</strong> payment environment. No real charges will be made. For actual payments, contact your state water office.
+            &nbsp;Live payments are enabled. You will be redirected to Paystack for secure checkout.
           </p>
         </div>
 
