@@ -28,9 +28,16 @@ if (backTop) {
 
 /* ---- Active nav link ---- */
 function setActiveNav() {
-  const current = location.pathname.split('/').pop() || 'index.html';
+  const path = location.pathname;
+  const current = path.split('/').pop() || 'index.html';
+  const isPaymentFlow = path.includes('/payment/');
+
   document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
     const href = a.getAttribute('href');
+    if (isPaymentFlow && href === 'payment.html') {
+      a.classList.add('active');
+      return;
+    }
     if (href === current || (current === '' && href === 'index.html')) {
       a.classList.add('active');
     }
